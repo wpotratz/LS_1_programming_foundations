@@ -1,0 +1,132 @@
+# A method that returns the sum of two integers:
+
+Get two integers:
+  - Prompt to get two integers.
+  - Save both integers.
+
+Add the values of both integers together and return the resulting sum.
+
+#########
+
+START
+
+WHILE first_integer and second_integer are NOT set
+  - GET first integer
+  - SET first_integer = the first integer
+  
+  - GET second integer
+  - SET second_integer = the second integer
+
+result = integer_1 + intger_2
+
+PRINT result
+
+END
+
+print "Enter first number: "
+first_integer = gets.chomp.to_i
+
+print "Enter second number: "
+second_integer = gets.chomp.to_i
+
+result = first_integer + second_integer
+
+puts "Your total is: #{result}"
+
+
+#########
+#########
+
+#  A method that takes an array of strings, and returns a string that is all those strings concatenated together
+
+Given an array of strings called 'strings'
+
+Set container for concatenated string called 'result' = ''
+
+Iterate on each value in strings
+  - Append the value of each element of strings to result
+
+Print result
+
+#########
+
+START
+
+#Given an array of strings called 'strings'
+
+SET result = ''
+SET iterator = 1
+
+WHILE iterator is < length of 'strings'
+  SET current_value = the value of the element within 'strings' at the 'iterator' location
+  
+  IF current_value = "" AND current_value is nil
+    SET result = result + current_value
+  
+  SET iterator = iterator + 1
+
+PRINT result
+
+END
+
+#########
+
+def concatenator(strings)
+  result = ''
+  
+  strings.each do |current_string|
+    current_string = current_string.to_s
+    result += current_string
+  end
+    
+  result
+end
+
+
+#########
+#########
+
+# Given an array of integers.
+
+Create a new empty array.
+
+Iterate through each element of the array, starting with the first element.
+  - At each element, if the index of the element is even (not odd),
+  copy the value of the element to the end of 'new_array'.
+  
+Return the new array.
+
+#########
+
+START
+
+# Given an array of integers called 'array'
+
+SET new_array = Array.new()
+SET iterator = 1
+
+WHILE iterator < size of array
+  IF iterator is an even number
+    new_array += array element at 'iterator' location
+  
+  iterator += 1
+END
+
+RETURN new_array
+
+END
+  
+#########
+
+arr = [3,6,9,12,15,18,21,24]
+
+def every_other(array)
+  new_array = Array.new()
+  
+  array.each_with_index do |element, i|
+    if i.even?
+      new_array << element
+    end
+  end
+  
+  new_array

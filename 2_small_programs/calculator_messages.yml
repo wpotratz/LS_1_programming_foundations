@@ -1,0 +1,22 @@
+# calculator_messages.yml
+
+en:
+  welcome: "Welcome to the calculator!\n\n"
+  get_name: "What is your name? "
+  check_name: "I didn't catch that..."
+  greetings: "Hello," #"Hello, #{name}."
+  
+  request_first_number: "Please choose your first number: "
+  show_first_number: "Your first number is"
+  request_second_number: "Please choose your second number: "
+  show_second_number: "Your second number is"
+  
+  request_operator: "Please choose an operator: \n 1) Add,  2) Subtract,  3) Multiply,  4) Divide \n: "
+  
+  zero_division_error_message: "Error, you can't divide by zero."
+  calculate_again?: "Would you like to make another calculation? ('Y' to continue)"
+  farewell: "I hope you enjoyed the calculator. Bye!\n\n"
+
+es:
+  welcome: "Bienvenido a la calculadora! Entre su nombre:"
+  valid_name: "Asegúrese de entrar un nombre válido."

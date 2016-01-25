@@ -1,0 +1,47 @@
+=begin
+
+  You'll need three pieces of information:
+  - the loan amount
+  - the Annual Percentage Rate (APR)
+  - the loan duration
+  
+  From the above, you'll need to calculate the following two things:
+  - monthly interest rate
+  - loan duration in months
+
+PROMPT welcome and informational
+GET user name
+  SET user name = 'user_name'
+PROMPT greetings to 'user_name'
+
+GET loan amount
+  WHILE loan_amount is invalid
+    PROMPT to get a valid loan amount from the user
+  SET loan amount = 'loan_amount'
+
+GET APR
+  WHILE apr is invalid
+    PROMPT to get a valid apr from the user
+  SET APR = 'apr'
+  SET 'monthly_interest' = 'apr' / 12
+
+GET loan duration AS selection of amount of months or years, and selection of months or years.
+  REQUIRE input format 'amount time_specification' ex '15 months' or '2 years'
+  WHILE loan duration is invalid
+    PROMPT to get a valid loan_duration
+  PARSE input separated by `space`
+  SET amount = 'duration'
+  SET time specification = 'time_spec'
+  IF 'time_spec' is years
+    SET 'loan_duration' = 'duration' * 12
+  ELSE
+    SET 'loan_duration' = 'duration'
+
+USE `P = L[c(1 + c)n]/[(1 + c)n - 1]` to calculate the monthly payment and SET P = 'monthly_payment'
+monthly_payment = (loan_amount * (monthly_interest(1 + monthly_interest)**loan_duration)) / ((1 + monthly_interest)**loan_duration - 1)
+
+USE `B = L[(1 + c)n - (1 + c)p]/[(1 + c)n - 1]` to calculate the remaining balance of the 
+loan after each payment, and SET B = 'balance'
+balance = loan_amount * ((1 + )
+
+=end
