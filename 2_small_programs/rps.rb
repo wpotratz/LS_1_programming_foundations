@@ -1,21 +1,23 @@
 # rps.rb
 require 'pry'
 
-VALID_CHOICES = { 'lizard' => [['l'], %w(paper spock)],
-                  'rock' => [['r'], %w(lizard scissors)],
-                  'paper' => [['p'], %w(rock spock)],
-                  'scissors' => [['sc'], %w(paper lizard)],
-                  'spock' => [['sp'], %w(rock scissors)]
+# VALID_CHOICES = { choice_name => [[primary abbrev options, ...other abbrev options], %w(killable opponent choices)]
+VALID_CHOICES = { 'lizard' => [%w(l li liz liza lizar), %w(paper spock)],
+                  'rock' => [%w(r ro roc), %w(lizard scissors)],
+                  'paper' => [%w(p pa pap pape), %w(rock spock)],
+                  'scissors' => [%w(sc sci scis sciss scisso scissor), %w(paper lizard)],
+                  'spock' => [%w(sp spo spoc), %w(rock scissors)]
                 }
+
 POINTS_TO_WIN = 5
 
-def choice_abbreviation(choice)
-  VALID_CHOICES.select { |name, _| name == choice }.values.first.first.first
+def choice_abbreviation(choice_name)
+  VALID_CHOICES.select { |name, _| name == choice_name }.values.first.first.first
 end
 
 def list_valid_choices
   VALID_CHOICES.keys.collect do |choice|
-    choice.capitalize + '(' + choice_abbreviation(choice).to_s + ')'
+    choice.capitalize + '(' + choice_abbreviation(choice) + ')'
   end.join(', ')
 end
 
@@ -63,13 +65,13 @@ def standardize_choice(choice)
   end
 end
 
-def results(player_choice, opponent_choice)
+def results(player_choice, opponent_choice, player_name, opponent_name)
   if player_choice == opponent_choice
     "It's a tie!"
   elsif win_round?(player_choice, opponent_choice)
-    "You win!"
+    "#{player_name} wins!"
   else
-    "You lose."
+    "#{opponent_name} wins."
   end
 end
 
@@ -86,14 +88,9 @@ end
 # START GAME!
 
 prompt "Welcome to Paper, Rock, Scissors\n\n"
-player = {}
-opponent = {}
 
-player[:name] = prompt_player_name
-player_name = player[:name]
-
-opponent[:name] = 'Computer'
-opponent_name = opponent[:name]
+player_name = prompt_player_name
+opponent_name = 'Computer'
 
 player_points = 0
 opponent_points = 0
@@ -101,14 +98,11 @@ opponent_points = 0
 loop do
   prompt "THE SCORE IS: #{player_name} #{player_points}; #{opponent_name} #{opponent_points}"
 
-  player[:choice] = get_player_choice(player_name)
-  player_choice = player[:choice]
-
-  opponent[:choice] = VALID_CHOICES.keys.sample
-  opponent_choice = opponent[:choice]
+  player_choice = get_player_choice(player_name)
+  opponent_choice = VALID_CHOICES.keys.sample
 
   prompt "#{player_name} chose #{show player_choice}; #{opponent_name} chose #{show opponent_choice}."
-  prompt_short results(player_choice, opponent_choice)
+  prompt_short results(player_choice, opponent_choice, player_name, opponent_name)
 
   if win_round?(player_choice, opponent_choice)
     player_points += 1

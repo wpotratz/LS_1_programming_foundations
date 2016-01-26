@@ -53,7 +53,7 @@ def float?(number)
 end
 
 def to_dollars(amount)
-  amount.to_i.to_s.reverse
+  amount.to_i.to_s
 end
 
 def to_cents(amount)
@@ -63,12 +63,13 @@ end
 def show_currency(number)
   dollars = to_dollars(number)
   cents = to_cents(number)
-  digit_index = 3
 
-  ((dollars.length - 1) / 3).times do
-    dollars.insert(digit_index, ',')
-    digit_index += 4
-  end
+  #digit_index = 3
+  #((dollars.length - 1) / 3).times do
+  #  dollars.insert(digit_index, ',')
+  #  digit_index += 4
+  
+  dollars = dollars.reverse.scan(/\d{1,3}/).join(',')
 
   "$#{dollars.reverse}.#{cents}"
 end
@@ -147,7 +148,7 @@ def set_loan_duration
     duration_valid_format = validate_duration_format(duration)
     next unless duration_valid_format
     duration_in_whole_months = convert_duration_entry_to_month(duration_valid_format)
-    next unless duration_in_whole_months
+    #next unless duration_in_whole_months
   end
   duration_in_whole_months
 end
@@ -169,11 +170,11 @@ end
 def calculate_monthly_payment_amount(amount, months, rate)
   amount = amount.to_f
   months = months.to_f
-  rate = (rate / 100).to_f
+  rate /= 100.0
   (amount * (rate * (1 + rate)**months)) / (((1 + rate)**months) - 1)
 end
 
-def month_plural?(months)
+def pluralize_month(months)
   months > 1 ? 'months' : 'month'
 end
 
@@ -202,7 +203,7 @@ loop do # Main Loop
   prompt LOAN_DURATION_INSTRUCTIONS.strip
   prompt_input
   loan_duration = set_loan_duration
-  prompt_long "Thanks, so the total loan duration will be #{loan_duration} #{month_plural?(loan_duration)}"
+  prompt_long "Thanks, so the total loan duration will be #{loan_duration} #{pluralize_month(loan_duration)}"
 
   monthly_interest = set_apr
   prompt_long "Got it."
