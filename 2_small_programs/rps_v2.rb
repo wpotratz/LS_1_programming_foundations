@@ -17,7 +17,6 @@ INVALID_CHOICES = ['s']
 POINTS_TO_WIN = 5
 
 def choice_abbreviation(choice_name)
-  #VALID_CHOICES.select { |name, _| name == choice_name }.values.first.first.first
   VALID_CHOICES[choice_name][:input].first
 end
 
@@ -58,19 +57,6 @@ def get_player_choice(player_name)
   end
 end
 
-#def standardize_choice(choice)
-#  valid_choices = VALID_CHOICES.keys
-#  valid_abbreviations = VALID_CHOICES.collect { |_, attributes| attributes.first }.flatten
-#
-#  if valid_choices.include?(choice)
-#    choice
-#  elsif valid_abbreviations.include?(choice)
-#    VALID_CHOICES.select { |_, attributes| attributes.first.include?(choice) }.keys.first
-#  else
-#    false
-#  end
-#end
-
 def standardize_choice(player_choice)
   return nil if INVALID_CHOICES.include?(player_choice)
   
@@ -92,7 +78,6 @@ end
 
 def win_round?(player_choice, opponent_choice)
   VALID_CHOICES.any? do |choice, choice_attributes|
-    #winner == player_choice && loser.last.include?(opponent_choice)
     choice == player_choice && choice_attributes[:defeats].include?(opponent_choice)
   end
 end

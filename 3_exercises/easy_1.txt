@@ -1,0 +1,107 @@
+q1: 
+  numbers = [1, 2, 2, 3]
+  numbers.uniq
+  
+  puts numbers
+
+a1: this will display the values of the original array, one at a time, because the uniq() method is not mutating the caller. It will return nil after displaying values.
+
+q2:
+  Describe the difference between ! and ? in Ruby. And explain what would happen in the following scenarios: 
+  1. what is != and where should you use it? 
+  2. put ! before something, like !user_name 
+  3. put ! after something, like words.uniq! 
+  4. put ? before something 
+  5. put ? after something 
+  6. put !! before something, like !!user_name
+
+a2: '!' is used as a negative against methods or expressions, returning the opposite of the truthiness of the subject following it. It is also used at the end of method names (typically) to indicate that it will be mutating the caller.
+'?' can be used at the end of a method name to indicate that it will be returning a true/false. It should probably not return or display anything else.
+
+  1. != is used to compare the inequality of two values (on either side of the '!=').
+  2. !user_name should return a value of true if the value of user_name is nil or false.
+  3. words.uniq! will update the value of 'words'. The 'uniq' method is used on an array and returns a new array with no repeating values, and in this case it will set words equal to this new value.
+  4. the only case i can think of is in a shortform 'if' statement.
+  5. ? after something indicates a method that is going to return a true or false.
+  6. !!user_name will return the truthiness of the value of 'user_name'. That is, if 'user_name' evaluates to a value with a truthiness of true, !!user_name will return true.
+
+q3: replace the word 'important' with the word 'urgent' here: 
+advice = "Few things in life are as important as house training your pet dinosaur."
+
+a3: 
+  advice.gsub!(/important/, 'urgent')
+  => "Few things in life are as urgent as house training your pet dinosaur." 
+  
+q4: 
+  numbers = [1, 2, 3, 4, 5]
+  
+  What do the following do?
+  numbers.delete_at(1)
+  numbers.delete(1)
+
+a4:
+  numbers.delete_at(1) deletes the element of the numbers array at the location of index 1
+  numbers.delete(1) deletes any elements with the value of 1 from numbers
+  both methods will return the value that is passed into it.
+  
+q5: Programmatically determine if 42 lies between 10 and 100.Programmatically
+
+a5: (10..100).include?(42) (my original answer).
+  I just learned more about the difference between include? and cover?. cover? is better in this case.
+
+q6: Starting with the string: famous_words = "seven years ago..."
+show two different ways to put the expected "Four score and " in front of it.
+
+a6:
+  famous_words = "seven years ago..."
+  famous_words.prepend("Four score and ")
+  
+  OR
+  famous_words = "seven years ago..."
+  other_words = "Four score and "
+  other_words << famous_words
+
+q7: 
+    def add_eight(number)
+      number + 8
+    end
+    
+    number = 2
+    
+    how_deep = "number"
+    5.times { how_deep.gsub!("number", "add_eight(number)") }
+    
+    p how_deep
+  
+  => "add_eight(add_eight(add_eight(add_eight(add_eight(number)))))"
+  
+a7: 
+  eval(how_deep)
+  => 42
+  
+q8: Make this into an unnested array:
+["Fred", "Wilma", ["Barney", "Betty"], ["BamBam", "Pebbles"]]
+
+a8:
+a = ["Fred", "Wilma", ["Barney", "Betty"], ["BamBam", "Pebbles"]]
+a.flatten!
+=> ["Fred", "Wilma", "Barney", "Betty", "BamBam", "Pebbles"] 
+
+q9: Turn this into an array containing only two elements: Barney's name and Barney's number
+flintstones = { "Fred" => 0, "Wilma" => 1, "Barney" => 2, "Betty" => 3, "BamBam" => 4, "Pebbles" => 5 }
+
+a9: 
+  flintstones.select { |name, num| name == 'Barney' }.flatten
+  
+  OR
+  
+  flintstones.assoc("Barney")
+  
+q10: Turn this array into a hash where the names are the keys and the values are the positions in the array.
+  flintstones = ["Fred", "Barney", "Wilma", "Betty", "Pebbles", "BamBam"]
+
+a10: 
+  flintstones = ["Fred", "Barney", "Wilma", "Betty", "Pebbles", "BamBam"]
+  new_hash = {}
+  flintstones.each_with_index { |name, i| new_hash[name] = i }
+  

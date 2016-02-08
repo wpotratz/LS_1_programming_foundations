@@ -222,7 +222,6 @@ def translate_start_options(selection)
   when '1' then true
   when '2' then false
   when '3' then [true, false].sample
-  else nil
   end
 end
 
@@ -235,7 +234,7 @@ def choose_start(player, computer)
     answer = nil
     prompt "Please choose 1, 2 or 3"
   end
-  
+
   translate_start_options(answer)
 end
 

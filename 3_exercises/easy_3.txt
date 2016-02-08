@@ -1,0 +1,43 @@
+q1: Show an easier way to write this array:
+  flintstones = ["Fred", "Barney", "Wilma", "Betty", "BamBam", "Pebbles"]
+
+a1: 
+  flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+
+q2: Add 'Dino' to this array:
+  flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+
+a2: 
+  flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+  flintstones << "Dino"
+
+q3: How can we add multiple items to this array:
+  flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+
+a3:
+  flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+  new_names = %w(Dino Hoppy)
+  flintstones.concat(new_names)
+  
+q4: Shorten this by removing everything from 'house' on:
+  advice = "Few things in life are as important as house training your pet dinosaur."
+
+a4: 
+  advice = "Few things in life are as important as house training your pet dinosaur."
+  advice[0...advice.index('house')]
+  advice.slice!(0...advice.index('house'))
+  advice.slice!(advice.index('house')..advice.size)
+  
+q5: Write a one-liner to count the number of lower-case 't' characters in the following string:
+  statement = "The Flintstones Rock!"
+
+a5: 
+  statement = "The Flintstones Rock!"
+  statement.count('t')
+
+q6: center the following in a 40 character row:
+  title = "Flintstone Family Members"
+
+a6:
+  title = "Flintstone Family Members"
+  title.center(40)

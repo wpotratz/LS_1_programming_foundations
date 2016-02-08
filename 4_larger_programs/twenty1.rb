@@ -1,4 +1,10 @@
 # twenty1.rb
+=begin
+  to do:
+  - see if win/lose scenarios can somehow be refactored to minimize length and complexity
+
+=end
+
 require 'pry'
 
 SUITS = { 'D' => 'Diamonds', 'C' => 'Clubs', 'S' => 'Spades', 'H' => 'Hearts' }

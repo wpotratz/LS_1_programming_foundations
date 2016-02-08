@@ -1,0 +1,142 @@
+
+1: 
+message = 'The Flintstones Rock!'
+spaces = 0
+
+10.times do 
+  puts (' ' * spaces) + message
+  spaces += 1
+end
+
+2:
+statement = "The Flintstones Rock"
+letter_count = {}
+statement.split('').each do |letter|
+  if letter_count.keys.include?(letter)
+    letter_count[letter] += 1
+  elsif (('A'..'Z').to_a + ('a'..'z').to_a).include?(letter)
+    letter_count[letter] = 1
+  end
+end
+puts letter_count.each { |letter, count| puts "#{letter} occurs #{count} time(s)." }
+
+SUGGESTED SOLUTION: 
+result = {}
+letters = ('A'..'Z').to_a + ('a'..'z').to_a
+letters.each do |letter|
+  letter_frequency = statement.scan(letter).count
+  result[letter] = letter_frequency if letter_frequency > 0
+end
+
+
+3: Fix this:
+puts "the value of 40 + 2 is " + (40 + 2)
+
+This errors because (40 + 2) returns an Integer. The whole expression tries to add that Integer to a String, which throws an error. Interpolation is one way to fix this, because the (40 + 2) expression is automatically converted to string.
+
+puts "the value of 40 + 2 is #{ 40 + 2 }"
+
+
+4: This code would print 1 and 3 on seperate lines, and return an array of [3, 4]. 
+  numbers = [1, 2, 3, 4]
+  numbers.each do |number|
+    p number
+    numbers.shift(1)
+  end
+  
+  This code will print 1 and 2 on seperate lines, and return an array of [1, 2].
+  numbers = [1, 2, 3, 4]
+  numbers.each do |number|
+    p number
+    numbers.pop(1)
+  end
+  
+5. 
+  - (number % dividend == 0) is used to see if 'number' is divided by 'divisors' evenly.
+  - The last line is the value that is returned from the method.
+  - This is how i fixed it:
+  
+  def factors(number)
+    dividend = number
+    divisors = []
+    while dividend > 0 do
+      divisors << number / dividend if number % dividend == 0
+      dividend -= 1
+    end 
+    divisors
+  end
+  
+6. 
+  - In this method, the 'buffer' parameter is actually changed by the '<<' operator. So the value that is passed into 'buffer' will be updated.
+  
+  def rolling_buffer1(buffer, max_buffer_size, new_element)
+    buffer << new_element
+    buffer.shift if buffer.size >= max_buffer_size
+    buffer
+  end
+  
+  - In this method, nothing that is passed into it will actually be modified.
+  
+  def rolling_buffer2(input_array, max_buffer_size, new_element)
+    buffer = input_array + [new_element]
+    buffer.shift if buffer.size >= max_buffer_size
+    buffer
+  end
+  
+7. To fix this, change the 'limit' variable to a constant ('LIMIT'). It cannot otherwise be accessed by the method because it is out of scope. Otherwise, you will need to pass the limit value into the method along with the two numbers.
+
+limit = 15
+
+def fib(first_num, second_num)
+  while second_num < LIMIT #limit
+    sum = first_num + second_num
+    first_num = second_num
+    second_num = sum
+  end
+  sum
+end
+
+result = fib(0, 1)
+puts "result is #{result}"
+
+
+8. Write your own version of the rails titleize implementation.
+
+my_message = 'Hello, my name is Wesley. Nice to meet you!'
+
+def titleize(message)
+  words = message
+  words.split.each { |word| word.capitalize! }.join(' ')
+end
+
+titleize(my_message)
+
+
+9. 
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+Note: a kid is in the age range 0 - 17, an adult is in the range 18 - 64 and a senior is aged 65+.
+
+def age_classification(age)
+  return 'not born yet' if age < 0
+  
+  case age
+  when 0..17
+    'kid'
+  when 18..64
+    'adult'
+  else 'senior'
+  end
+end
+
+munsters.each do |munster, details|
+  details['age_group'] = age_classification(details['age'])
+end
+
+munsters.each { |munster, details| puts "#{munster} is a #{details['age_group']}." }

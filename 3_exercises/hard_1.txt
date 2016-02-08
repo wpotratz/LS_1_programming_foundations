@@ -1,0 +1,126 @@
+1: What will happen?:
+  if false
+    greeting = “hello world”
+  end
+  
+  greeting
+  
+  >>>>>>
+  
+  Nothing will happen because the 'if' condition is not met.
+  
+2: Apparently, a hash has an object_id, and the elements of the hash have their own object_ids. The informal_greeting variable points to the original value of the hash element. So, the '<<' operator, which mutates the caller, will be modifying that same original hash value, in it's original memory space.  Changing '<<' to '+=' will create a new object, and keep the value of the orignal object from being changed.
+
+  greetings = { a: 'hi' }
+  informal_greeting = greetings[:a]
+  informal_greeting << ' there'
+  
+  puts informal_greeting  #  => "hi there"
+  puts greetings
+  
+3: 
+A) The original variables will not be changed because the '=' assignment does not mutate the caller.
+  def mess_with_vars(one, two, three)
+    one = two; puts "#{one} #{two} #{three}";
+    two = three; puts "#{one} #{two} #{three}";
+    three = one; puts "#{one} #{two} #{three}"
+  end
+  
+  one = "one"
+  two = "two"
+  three = "three"
+  
+  mess_with_vars(one, two, three)
+  
+  puts "one is: #{one}"
+  puts "two is: #{two}"
+  puts "three is: #{three}"
+
+B) Same story for the same reason.
+  def mess_with_vars(one, two, three)
+    one = "two"
+    two = "three"
+    three = "one"
+  end
+  
+  one = "one"
+  two = "two"
+  three = "three"
+  
+  mess_with_vars(one, two, three)
+  
+  puts "one is: #{one}"
+  puts "two is: #{two}"
+  puts "three is: #{three}"
+
+C) This time, the values are changed because 'gsub!' mutates the caller.
+  def mess_with_vars(one, two, three)
+    one.gsub!("one","two")
+    two.gsub!("two","three")
+    three.gsub!("three","one")
+  end
+  
+  one = "one"
+  two = "two"
+  three = "three"
+  
+  mess_with_vars(one, two, three)
+  
+  puts "one is: #{one}"
+  puts "two is: #{two}"
+  puts "three is: #{three}"
+
+
+4:  8-4-4-4-12 
+
+HEX_VALUES = ('a'..'f').to_a + (0..9).to_a
+
+def random_hex_value(number_of_times = 0)
+  result = ''
+  number_of_times.times { result << HEX_VALUES.sample.to_s }
+  
+  result
+end
+
+def create_uuid(id_input='')
+  unless id_input.empty?
+    return id_input
+  end
+  
+  "#{random_hex_value 8}-#{random_hex_value 4}-#{random_hex_value 4}-#{random_hex_value 4}-#{random_hex_value 12}"
+end
+
+random_uuid = create_uuid
+another_uuid = create_uuid('yoyoyo')
+
+
+5: 
+
+def dot_separated_ip_address?(input_string)
+  dot_separated_words = input_string.split(".")
+  while dot_separated_words.size > 0 do
+    word = dot_separated_words.pop
+    break if !is_a_number?(word)
+  end
+  return true
+end
+
+>>>>>>>
+
+def is_a_number?(input)
+  /^\d*\.?\d*$/.match(input.to_s)
+end
+
+def dot_separated_ip_address?(input_string)
+  dot_separated_words = input_string.split(".")
+  
+  return false if input_string.scan('.').count != 3
+  return false if dot_separated_words.size != 4
+  
+  while dot_separated_words.size > 0 do
+    word = dot_separated_words.pop
+    return false if !is_a_number?(word)
+  end
+  
+  return true
+end
